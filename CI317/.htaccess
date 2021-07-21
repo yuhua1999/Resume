@@ -1,0 +1,24 @@
+<IfModule mod_rewrite.c>
+
+	#先找 index.php
+	DirectoryIndex index.php
+
+	#引擎開啟，讓重寫規則生效
+	RewriteEngine on
+
+	#RewriteCond代表定義一條重寫規則。
+	#重寫規則: 若網址後的參數不為index.php, images, css, js, robots.txt, favicon.ico任何一項
+	RewriteCond $1 !^(index\.php|images|css|js|web|robots\.txt|favicon\.ico)
+
+	#且request的不是一般檔案
+	RewriteCond %{REQUEST_FILENAME} !-f
+
+	#且request也不是資料夾
+	RewriteCond %{REQUEST_FILENAME} !-d
+
+	#RewriteRule代表取得重寫字串，並套入重寫規則。
+	#將request參數導到index.php下
+	RewriteRule ^(.*)$ ./index.php/$1 [L,QSA]
+
+
+</IfModule>
